@@ -66,17 +66,17 @@ class CameraComponent extends React.Component {
 
   takePicture = async () => {
     let photo= await this.camera.takePictureAsync({
-      quality: 0.1,
+      quality: 1,
       base64: true,
       exif: false,
-      width : 480,
-      height: 640
+      width : 960,
+      height: 1280
     })
 
     let resizedPhoto = await ImageManipulator.manipulateAsync(
       photo.uri,
       [{ resize: { width: 640, height: 480 } }],
-      { compress: 0, format: "jpg", base64: true }
+      { compress: 0.5, format: "jpg", base64: true }
   );
 
       await console.log({img: resizedPhoto.base64})
