@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ImageBackground, Picker } from 'react-native';
 import { Camera, Permissions, ImageManipulator } from 'expo';
 
 export default class App extends React.Component {
@@ -15,9 +15,9 @@ export default class App extends React.Component {
     );
   }
 
+
   render() {
     const { cameraPermission } = this.state;
-
     return (
       <View style={styles.container}>
         {cameraPermission === null ? (
@@ -27,10 +27,22 @@ export default class App extends React.Component {
         ) : (
           <CameraComponent/>
         )}
+      <Picker
+          style={{width: 100}}
+          selectedValue={this.state.language}
+          onValueChange={(lang) => this.setState({language: lang})}>
+          <Picker.Item label="English" value="en" />
+          <Picker.Item label="French" value="fr" />
+          <Picker.Item label="Spanish" value="sp" />
+      </Picker>
       </View>
     );
   }
 }
+
+
+
+
 
 const PHOTO_INTERVAL = 4000;
 const FOCUS_TIME = 1000;
