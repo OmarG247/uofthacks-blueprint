@@ -117,8 +117,14 @@ export default class App extends React.Component {
                   <Picker.Item label="Arabic (عربى)" value="ar" />
                   <Picker.Item label="English (English)" value="en" />
                   <Picker.Item label="French (Français)" value="fr" />
-                  <Picker.Item label="Mandarin (普通话)" value="zh" />
                   <Picker.Item label="Spanish (Español)" value="es" />
+                  <Picker.Item label="German (Deutsche)" value="de" />
+                  <Picker.Item label="Mandarin (普通话)" value="zh" />
+                  <Picker.Item label="Russian (Pусский)" value="ru" />
+                  <Picker.Item label="Greek (Ελληνικά)" value="el" />
+                  <Picker.Item label="Finnish (Suomalainen)" value="fi" />
+                  <Picker.Item label="Italian (Italiano)" value="it" />
+                  <Picker.Item label="Japanese (日本人)" value="ja" />
                 </Picker>
                 <Card style={styles.empty}>
                   <Text style={styles.emptyText}>Collect more items!</Text>
@@ -158,7 +164,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: 'transparent',
     flexDirection: 'column',
