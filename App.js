@@ -12,8 +12,21 @@ import {
   Picker,
   ImageBackground,
 } from 'react-native';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph
+} from 'react-native-chart-kit'
 import { Constants } from 'expo';
 import { Card } from 'react-native-paper';
+const screenWidth = Dimensions.get('window').width
+const chartConfig = {
+  backgroundGradientFrom: '#001871',
+  backgroundGradientTo: '#001871',
+  color: (opacity = 100) => `rgba(244, 80, 4, ${opacity})`
+}
 
 import QuizObject from './components/QuizObject';
 import CamButton from './components/CamButton';
@@ -28,6 +41,12 @@ export default class App extends React.Component {
       language: 'en',
       quizObject: [
       ],
+      data : {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          data: [ 300, 400, 500, 300, 200, 100, 200]
+        }]
+      }
     };
   }
 
@@ -126,6 +145,13 @@ export default class App extends React.Component {
                   <Picker.Item label="Italian (Italiano) (it)" value="it" />
                   <Picker.Item label="Japanese (日本人) (ja)" value="ja" />
                 </Picker>
+                        <BarChart
+          data={this.state.data}
+          width={screenWidth}
+          height={220}
+          chartConfig={chartConfig}
+          style = {{color: "orange"}}
+        />
               </View>
             )}
           </ScrollView>
@@ -169,6 +195,14 @@ const styles = StyleSheet.create({
     opacity: 1,
   },
   empty: {
+    marginTop: Dimensions.get('window').height / 4,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 50,
+    alignContent: 'center',
+    width: '80%',
+  },
+  graphStyle: {
     marginTop: Dimensions.get('window').height / 4,
     paddingTop: 10,
     paddingBottom: 10,
