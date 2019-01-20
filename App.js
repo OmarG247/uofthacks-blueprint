@@ -129,6 +129,7 @@ export default class App extends React.Component {
               ))
             ) : (
               <View style={styles.container}>
+              <View style={{borderColor: '#F45004',borderWidth: 1}}>
                <Picker
                   style={{width: 300, alignItems: 'center', marginLeft: 80, color: 'white'}}
                   selectedValue={this.state.language}
@@ -145,6 +146,7 @@ export default class App extends React.Component {
                   <Picker.Item label="Italian (Italiano) (it)" value="it" />
                   <Picker.Item label="Japanese (日本人) (ja)" value="ja" />
                 </Picker>
+                </View>
                         <BarChart
           data={this.state.data}
           width={screenWidth}
@@ -153,7 +155,7 @@ export default class App extends React.Component {
           style = {{color: "orange"}}
         />
 
-        <Text style={styles.scoreBlue}>Your weekly progress: </Text>
+        <Text style={styles.scoreBlue}>Your weekly progress </Text>
               </View>
             )}
           </ScrollView>
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   },
   scoreBlue: {
     fontSize:20,
-    color: 'orange',
+    color: '#F45004',
     paddingTop: 10,
     paddingBottom :10,
     textAlign: 'center'
