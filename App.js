@@ -44,7 +44,7 @@ export default class App extends React.Component {
       data : {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         datasets: [{
-          data: [ 300, 400, 500, 300, 200, 100, 200]
+          data: [ 300, 400, 200, 300, 100, 200]
         }]
       }
     };
@@ -107,18 +107,20 @@ export default class App extends React.Component {
             <Image
               style={{
                 flex: 1,
-                marginTop: 80,
+                marginTop: 40,
                 justifyContent: 'center',
                 alignItems: 'center',
                 alignContent: 'center',
                 alignSelf: 'center',
                 height: 120,
-                width: '100%',
+                width: '80%',
+                padding: 80,
+                resizeMode: 'contain',
               }}
               source={require('./assets/icons/main-logo.png')}
             />
             <Text style={styles.scoreBlue}>Your Score is: {this.state.quizObject.length * 100}/500</Text>
-            <Text style={styles.scoreBlue}>Current Language being Practiced: {this.state.language}</Text>
+            <Text style={styles.scoreBlue}>Current blueprint being built: {this.state.language}</Text>
             {this.state.quizObject.length ? (
               this.state.quizObject.map((item, i) => (
                 <QuizObject
@@ -128,9 +130,9 @@ export default class App extends React.Component {
                 />
               ))
             ) : (
-              <View style={styles.container}>
+              <View style={styles.graphStyle}>
                <Picker
-                  style={{width: 300, alignItems: 'center', marginLeft: 80, color: 'white'}}
+                  style={{width: 300, alignItems: 'center', marginLeft: 80, marginBottom: 5, color: 'white'}}
                   selectedValue={this.state.language}
                   onValueChange={(lang) => this.setState({language: lang}, console.log(lang))}>
                   <Picker.Item label="Arabic (عربى) (ar)" value="ar" />
@@ -147,13 +149,13 @@ export default class App extends React.Component {
                 </Picker>
                         <BarChart
           data={this.state.data}
-          width={screenWidth}
+          width={400}
           height={220}
           chartConfig={chartConfig}
-          style = {{color: "orange"}}
+          style = {{color: "#F45004", paddingLeft: 40, paddingRight: 40, backgroundColor: 'transparent'}}
         />
 
-        <Text style={styles.scoreBlue}>Your weekly progress: </Text>
+        <Text style={styles.scoreBlue}>Your weekly progress </Text>
               </View>
             )}
           </ScrollView>
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   },
   scoreBlue: {
     fontSize:20,
-    color: 'orange',
+    color: '#F45004',
     paddingTop: 10,
     paddingBottom :10,
     textAlign: 'center'
@@ -225,4 +227,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 120,
   },
+  graphStyle: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: 'transparent',
+    flexDirection: 'column',
+    //alignItems: 'center'
+    opacity: 1,
+    marginTop: 10,
+  }
 });
