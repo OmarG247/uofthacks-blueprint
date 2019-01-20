@@ -152,6 +152,8 @@ export default class App extends React.Component {
           chartConfig={chartConfig}
           style = {{color: "orange"}}
         />
+
+        <Text style={styles.scoreBlue}>Your weekly progress: </Text>
               </View>
             )}
           </ScrollView>
@@ -215,6 +217,7 @@ const styles = StyleSheet.create({
     color: 'orange',
     paddingTop: 10,
     paddingBottom :10,
+    textAlign: 'center'
   },
   emptyText: {
     fontSize: 18,
