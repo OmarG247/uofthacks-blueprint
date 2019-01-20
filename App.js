@@ -113,11 +113,11 @@ export default class App extends React.Component {
                   style={{width: 300, alignItems: 'center', marginLeft: 80, color: 'white'}}
                   selectedValue={this.state.language}
                   onValueChange={(lang) => this.setState({language: lang}, console.log(lang))}>
-                  <Picker.Item label="Arabic (عربى)" value="AR" />
-                  <Picker.Item label="English (English)" value="EN" />
-                  <Picker.Item label="French (Français)" value="FR" />
-                  <Picker.Item label="Mandarin (普通话)" value="ZH" />
-                  <Picker.Item label="Spanish (Español)" value="ES" />
+                  <Picker.Item label="Arabic (عربى)" value="ar" />
+                  <Picker.Item label="English (English)" value="en" />
+                  <Picker.Item label="French (Français)" value="fr" />
+                  <Picker.Item label="Mandarin (普通话)" value="zh" />
+                  <Picker.Item label="Spanish (Español)" value="es" />
                 </Picker>
                 <Card style={styles.empty}>
                   <Text style={styles.emptyText}>Collect more items!</Text>
