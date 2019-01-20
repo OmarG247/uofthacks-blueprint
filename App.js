@@ -114,21 +114,18 @@ export default class App extends React.Component {
                   style={{width: 300, alignItems: 'center', marginLeft: 80, color: 'white'}}
                   selectedValue={this.state.language}
                   onValueChange={(lang) => this.setState({language: lang}, console.log(lang))}>
-                  <Picker.Item label="Arabic (عربى)" value="ar" />
-                  <Picker.Item label="English (English)" value="en" />
-                  <Picker.Item label="French (Français)" value="fr" />
-                  <Picker.Item label="Spanish (Español)" value="es" />
-                  <Picker.Item label="German (Deutsche)" value="de" />
-                  <Picker.Item label="Mandarin (普通话)" value="zh" />
-                  <Picker.Item label="Russian (Pусский)" value="ru" />
-                  <Picker.Item label="Greek (Ελληνικά)" value="el" />
-                  <Picker.Item label="Finnish (Suomalainen)" value="fi" />
-                  <Picker.Item label="Italian (Italiano)" value="it" />
-                  <Picker.Item label="Japanese (日本人)" value="ja" />
+                  <Picker.Item label="Arabic (عربى) (ar)" value="ar" />
+                  <Picker.Item label="English (English) (en)" value="en" />
+                  <Picker.Item label="French (Français) (fr)" value="fr" />
+                  <Picker.Item label="Spanish (Español) (es)" value="es" />
+                  <Picker.Item label="German (Deutsche) (de)" value="de" />
+                  <Picker.Item label="Mandarin (普通话)(zh)" value="zh" />
+                  <Picker.Item label="Russian (Pусский) (ru)" value="ru" />
+                  <Picker.Item label="Greek (Ελληνικά) (el)" value="el" />
+                  <Picker.Item label="Finnish (Suomalainen) (fi)" value="fi" />
+                  <Picker.Item label="Italian (Italiano) (it)" value="it" />
+                  <Picker.Item label="Japanese (日本人) (ja)" value="ja" />
                 </Picker>
-                <Card style={styles.empty}>
-                  <Text style={styles.emptyText}>Collect more items!</Text>
-                </Card>
               </View>
             )}
           </ScrollView>
