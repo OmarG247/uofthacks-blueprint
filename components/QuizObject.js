@@ -14,6 +14,7 @@ export default class QuizObject extends React.Component {
       name,
       sourceText,
       targetText,
+      targetLanguage
     } = this.props.item;
     return (
       <TouchableOpacity style={styles.container} onPress={this.handleTouch}>
@@ -23,12 +24,12 @@ export default class QuizObject extends React.Component {
               <Text style={{ fontWeight: 'bold' }}>{name}</Text>
               <Text>
                 {sourceText != '--'
-                  ? `Source Text is ${sourceText}\n`
+                  ? `In english we detected: ${sourceText}\n`
                   : ' '}
               </Text>
               <Text>
                 {targetText != '--'
-                  ? `Target Text is ${targetText}`
+                  ? `In  ${targetLanguage} we detected ${targetText}`
                   : ' '}
               </Text>
               <Text>

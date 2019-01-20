@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 6868,
+  "expoServerNgrokUrl": "https://zp-xnf.anonymous.uofthacks-blueprint.exp.direct",
+  "packagerNgrokUrl": "https://packager.zp-xnf.anonymous.uofthacks-blueprint.exp.direct",
+  "ngrokPid": 6938,
   "devToolsPort": 19002
 }

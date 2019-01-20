@@ -94,11 +94,12 @@ export default class App extends React.Component {
                 alignContent: 'center',
                 alignSelf: 'center',
                 height: 120,
-                width: '80%',
+                width: '100%',
               }}
               source={require('./assets/icons/main-logo.png')}
             />
-            <Text>{this.state.quizObject.length * 100}</Text>
+            <Text style={styles.scoreBlue}>Your Score is: {this.state.quizObject.length * 100}/500</Text>
+            <Text style={styles.scoreBlue}>Current Language being Practiced: {this.state.language}</Text>
             {this.state.quizObject.length ? (
               this.state.quizObject.map((item, i) => (
                 <QuizObject
@@ -171,6 +172,12 @@ const styles = StyleSheet.create({
     marginLeft: 50,
     alignContent: 'center',
     width: '80%',
+  },
+  scoreBlue: {
+    fontSize:20,
+    color: 'orange',
+    paddingTop: 10,
+    paddingBottom :10,
   },
   emptyText: {
     fontSize: 18,
