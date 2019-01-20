@@ -1,107 +1,154 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
-import { Camera, Permissions, ImageManipulator } from 'expo';
+//Line 91 has the thing you are looking for Omar
+process.nextTick = setImmediate;
+import * as React from 'react';
+import {
+  Dimensions,
+  Alert,
+  Image,
+  Text,
+  ScrollView,
+  View,
+  StyleSheet,
+  Picker,
+  ImageBackground,
+} from 'react-native';
+import { Constants } from 'expo';
+import { Card } from 'react-native-paper';
+
+import QuizObject from './components/QuizObject';
+import CamButton from './components/CamButton';
+import Cam from './components/Cam';
 
 export default class App extends React.Component {
-  state = {
-    cameraPermission: null
+  constructor() {
+    super();
+    this.state = {
+      cameraOn: false,
+      loading: false,
+      language: 'en',
+      quizObject: [
+      ],
+    };
+  }
+
+  toggleCam = e => {
+    this.setState({
+      cameraOn: !this.state.cameraOn,
+    });
   };
 
-  componentDidMount() {
-    Permissions.askAsync(Permissions.CAMERA).then(({ status }) =>
-      this.setState({
-        cameraPermission: status === 'granted'
-      })
-    );
-  }
+  pushItem = newItem => {
+    this.setState({
+      quizObject: [...this.state.quizObject, { ...newItem, id: this.state.quizObject.length }],
+    });
+    this.setLoading(false);
+    console.log(newItem);
+  };
+
+  popItem = i => {
+    let newQuiz = this.state.quizObject.filter(item => item.id !== i);
+    this.setState({
+      quizObject: newQuiz,
+    });
+  };
+
+  setLoading = s => {
+    this.setState({
+      loading: s,
+    });
+    if (!s) this.setState({ cameraOn: false });
+  };
 
   render() {
-    const { cameraPermission } = this.state;
-
     return (
       <View style={styles.container}>
-        {cameraPermission === null ? (
-          <Text>Waiting for permission...</Text>
-        ) : cameraPermission === false ? (
-          <Text>Permission denied</Text>
+      <ImageBackground 
+        source={require('./assets/icons/main-bg.png')}
+        style={{resizeMode: 'cover', height:'110%'}}
+      >
+        {this.state.loading ? (
+          <Image
+            source={require('./assets/icons/loading-icon.gif')}
+            style={{
+              marginTop: 80,
+              maxHeight: 150,
+              height: 60,
+              width: '100%',
+              resizeMode: 'cover',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              alignContent: 'center',
+              alignSelf: 'center',
+              backgroundColor: 'transparent',
+            }}
+          />
         ) : (
-          <CameraComponent/>
+          <ScrollView>
+            <Image
+              style={{
+                flex: 1,
+                marginTop: 80,
+                justifyContent: 'center',
+                alignItems: 'center',
+                alignContent: 'center',
+                alignSelf: 'center',
+                height: 120,
+                width: '80%',
+              }}
+              source={require('./assets/icons/main-logo.png')}
+            />
+            <Text>{this.state.quizObject.length * 100}</Text>
+            {this.state.quizObject.length ? (
+              this.state.quizObject.map((item, i) => (
+                <QuizObject
+                  item={item}
+                  key={i}
+                  popItem={this.popItem.bind(this)}
+                />
+              ))
+            ) : (
+              <View style={styles.container}>
+               <Picker
+                  style={{width: 300, alignItems: 'center', marginLeft: 80, color: 'white'}}
+                  selectedValue={this.state.language}
+                  onValueChange={(lang) => this.setState({language: lang}, console.log(lang))}>
+                  <Picker.Item label="Arabic (عربى)" value="AR" />
+                  <Picker.Item label="English (English)" value="EN" />
+                  <Picker.Item label="French (Français)" value="FR" />
+                  <Picker.Item label="Mandarin (普通话)" value="ZH" />
+                  <Picker.Item label="Spanish (Español)" value="ES" />
+                </Picker>
+                <Card style={styles.empty}>
+                  <Text style={styles.emptyText}>Collect more items!</Text>
+                </Card>
+              </View>
+            )}
+          </ScrollView>
         )}
-      </View>
-    );
-  }
-}
-
-const PHOTO_INTERVAL = 4000;
-const FOCUS_TIME = 1000;
-const SERVER_URL = "http://192.168.1.45:5005/";
-
-class CameraComponent extends React.Component {
-  state = {
-    photo: null
-  }
-
-  /*uploadPicture = () => {
-    return fetch(SERVER_URL, {
-      body: JSON.stringify({
-        image: this.state.photo.base64
-      }),
-      headers: {
-        'content-type': 'application/json'
-      },
-      method: 'POST'
-    })
-    .then(response => response.json())
-  }*/
-
-  /*queuePhoto = () => {
-    // In 27 seconds, turn the camera back on
-    setTimeout(() => {
-      this.setState({ photo: null });
-    }, PHOTO_INTERVAL - FOCUS_TIME);
-
-    // In 30 seconds, take the next picture
-    setTimeout(this.takePicture, PHOTO_INTERVAL);
-  }*/
-
-  takePicture = async () => {
-    let photo= await this.camera.takePictureAsync({
-      quality: 0.1,
-      base64: true,
-      exif: false,
-      width : 480,
-      height: 640
-    })
-
-    let resizedPhoto = await ImageManipulator.manipulateAsync(
-      photo.uri,
-      [{ resize: { width: 640, height: 480 } }],
-      { compress: 0, format: "jpg", base64: true }
-  );
-
-      await console.log({img: resizedPhoto.base64})
-  }
-
-  render() {
-    const { photo } = this.state;
-
-    return (
-      <View style={{ flex: 1, width: '100%' }}>
-       {photo ? (
-         <ImageBackground
-           style={{ flex: 1 }}
-           source={{ uri: photo.uri }} />
-       ) : (
-         <Camera
-           style={{ flex: 1 }}
-           onPress={this.takePicture}
-           type={Camera.Constants.Type.back}
-           ref={cam => this.camera = cam}>
-           <TouchableOpacity
-             style={{ flex: 1 }}
-             onPress={this.takePicture}/>
-         </Camera>
-       )}
+        <View
+          style={
+            this.state.cameraOn
+              ? { height: Dimensions.get('window').height }
+              : { height: 150 }
+          }
+        >
+          {this.state.cameraOn ? (
+            <Cam
+              language={this.state.language}
+              pushItem={this.pushItem.bind(this)}
+              toggle={this.toggleCam.bind(this)}
+              setLoading={this.setLoading.bind(this)}
+              style={{ flex: 3 }}
+            />
+          ) : (
+            <CamButton
+              setLoading={this.toggleCam.bind(this)}
+              toggle={this.toggleCam.bind(this)}
+            />
+          )}
+        </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -110,8 +157,25 @@ class CameraComponent extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+    paddingTop: Constants.statusBarHeight,
+    backgroundColor: 'transparent',
+    flexDirection: 'column',
+    //alignItems: 'center'
+    opacity: 1,
+  },
+  empty: {
+    marginTop: Dimensions.get('window').height / 4,
+    paddingTop: 10,
+    paddingBottom: 10,
+    marginLeft: 50,
+    alignContent: 'center',
+    width: '80%',
+  },
+  emptyText: {
+    fontSize: 18,
+    marginLeft: Dimensions.get('window').width / 2 - 75,
+    fontWeight: 'bold',
+    marginLeft: 120,
+  },
 });
