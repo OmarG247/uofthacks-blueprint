@@ -25,12 +25,13 @@ const screenWidth = Dimensions.get('window').width
 const chartConfig = {
   backgroundGradientFrom: '#001871',
   backgroundGradientTo: '#001871',
-  color: (opacity = 100) => `rgba(244, 80, 4, ${opacity})`
+  color: (opacity = 100) => `rgba(255, 255, 255, ${opacity})`
 }
 
 import QuizObject from './components/QuizObject';
 import CamButton from './components/CamButton';
 import Cam from './components/Cam';
+import { withTheme } from '@callstack/react-theme-provider';
 
 export default class App extends React.Component {
   constructor() {
@@ -40,6 +41,7 @@ export default class App extends React.Component {
       loading: false,
       language: 'en',
       quizObject: [
+        
       ],
       data : {
         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
