@@ -91,7 +91,7 @@ export default class Cam extends React.Component {
                 }}
                 onPress={() => this.props.toggle()}
               >
-                <Text style={{ fontSize: 18, marginBottom: 10, color: 'red' }}>
+                <Text style={{ fontSize: 40, marginBottom: 10, color: 'red'}}>
                   X
                 </Text>
               </TouchableOpacity>

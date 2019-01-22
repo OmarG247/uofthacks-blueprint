@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
   camIcon: {
     height: 70,
     width: 70, 
-    marginTop : -180,
+    marginTop : -260,
   }
 });
